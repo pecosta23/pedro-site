@@ -1,122 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="Favicon.png" type="image/png"/>
-  <title>Pedro - Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-    }
-  </style>
-</head>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    tsParticles.load("tsparticles", {
-      background: {
-        color: {
-          value: "#000000"
-        }
-      },
-      fpsLimit: 60,
-      particles: {
-        color: {
-          value: "#ffffff"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="Favicon.png" type="image/png"/>
+    <title>Pedro - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  </head>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      tsParticles.load("tsparticles", {
+        background: {
+          color: {
+            value: "#000000"
+          }
         },
-        number: {
-          value: 100,
-          density: {
+        fpsLimit: 60,
+        particles: {
+          color: {
+            value: "#ffffff"
+          },
+          number: {
+            value: 100,
+            density: {
+              enable: true,
+              area: 800
+            }
+          },
+          size: {
+            value: 1.5
+          },
+          move: {
             enable: true,
-            area: 800
+            speed: 0.5
+          },
+          opacity: {
+            value: 0.8
           }
         },
-        size: {
-          value: 1.5
-        },
-        move: {
-          enable: true,
-          speed: 0.5
-        },
-        opacity: {
-          value: 0.8
-        }
-      },
-      interactivity: {
-        events: {
-          onHover: {
-            enable: false
+        interactivity: {
+          events: {
+            onHover: {
+              enable: false
+            }
           }
         }
-      }
+      });
     });
-  });
-</script>
-<header class="w-screen fixed top-0 flex justify-center items-center z-10">
-    <nav class="border-slate-700 border w-[400px] h-8 rounded-3xl backdrop-blur-sm bg-neutral-800 bg-opacity-50 my-5 px-3 flex items-center">
-      <ul class="text-slate-100 w-full flex justify-between gap-8 italic text-sm px-5">
-        <li><a href="about.html" class="hover:text-blue-400">About</a></li>
-        <li><a href="https://github.com/pecosta23/" class="hover:text-blue-400" target="_blank" rel="noopener noreferrer">Github</a></li>
-        <li><a href="https://linkedin.com/in/pedro-costa-2802-pcm/" class="hover:text-blue-400" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-</header>
-<body class="bg-black text-white min-h-screen flex items-center justify-center px-4">
-  <div id="tsparticles" class="fixed top-0 left-0 w-full h-full -z-10"></div>
-  <main class="max-w-4xl text-center">
-    <h1 class="text-5xl sm:text-8xl font-bold italic mb-6">Hello, I'm <span class="text-white">Pedro</span>_</h1>
-    <br>
-    <div class="mt-6">
-    <p class="text-gray-300 font-bold uppercase text-sm">Programming languages</p>
-    <div class="flex flex-wrap justify-center gap-4 mt-4">
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="code" class="w-4 h-4 text-yellow-300"></i>
-        Python
+  </script>
+  <style>
+      body {
+        font-family: 'Arial', sans-serif;
+      }
+  </style>
+  <header class="w-screen fixed top-0 flex justify-center items-center z-10">
+      <nav class="border-slate-700 border w-[400px] h-8 rounded-3xl backdrop-blur-sm bg-neutral-800 bg-opacity-50 my-5 px-3 flex items-center">
+        <ul class="text-slate-100 w-full flex justify-between gap-8 italic text-sm px-5">
+          <li><a href="about.html" class="hover:text-blue-400">About</a></li>
+          <li><a href="https://github.com/pecosta23/" class="hover:text-blue-400" target="_blank" rel="noopener noreferrer">Github</a></li>
+          <li><a href="https://linkedin.com/in/pedro-costa-2802-pcm/" class="hover:text-blue-400" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+  </header>
+  <body class="bg-black text-white min-h-screen flex items-center justify-center px-4">
+    <div id="tsparticles" class="fixed top-0 left-0 w-full h-full -z-10"></div>
+      <main class="max-w-4xl text-center">
+        <h1 class="text-5xl sm:text-8xl font-bold italic mb-6">Hello, I'm <span class="text-white">Pedro</span>_</h1><br>
+        <div class="mt-6">
+          <p class="text-gray-300 font-bold uppercase text-sm">Programming languages</p>
+          <div class="flex flex-wrap justify-center gap-4 mt-4">
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <i data-lucide="code" class="w-4 h-4 text-yellow-300"></i>
+              Python
+            </div>
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <i data-lucide="terminal" class="w-4 h-4 text-red-300"></i>
+              Java
+            </div>
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <i data-lucide="layout-template" class="w-4 h-4 text-green-300"></i>
+              Kotlin
+            </div>
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <i data-lucide="file-code" class="w-4 h-4 text-yellow-400"></i>
+              JavaScript
+            </div>
+          </div>
         </div>
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="terminal" class="w-4 h-4 text-red-300"></i>
-        Java
+        <div class="mt-6">
+          <p class="text-gray-300 font-bold uppercase text-sm">Recent Projects</p>
+          <div class="flex flex-wrap justify-center gap-4 mt-4">
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <a href="https://github.com/pecosta23/TechChallengeFase1"  
+                 class="flex items-center gap-2 text-white-300 hover:underline"  
+                 target="_blank" rel="noopener noreferrer">
+                 <i data-lucide="webhook" class="w-4 h-4"></i>
+                 VitiBrasil, Scraping + API
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="layout-template" class="w-4 h-4 text-purple-300"></i>
-        Kotlin
+        <div class="mt-6">
+          <p class="text-gray-300 font-bold uppercase text-sm">Working with</p>
+          <div class="flex flex-wrap justify-center gap-4 mt-4">
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <i data-lucide="laptop" class="w-4 h-4 text-blue-300"></i>
+              VsCode
+            </div>
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <i data-lucide="server" class="w-4 h-4 text-purple-300"></i>
+              Linux
+            </div>
+          </div>
         </div>
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="file-code" class="w-4 h-4 text-yellow-400"></i>
-        JavaScript
+        <div class="mt-6">
+          <p class="text-gray-300 font-bold uppercase text-sm">Usual frameworks</p>
+          <div class="flex flex-wrap justify-center gap-4 mt-4">
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+            <i data-lucide="zap" class="w-4 h-4 text-yellow-300"></i>
+              FastAPI
+              </div>
+            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
+              <i data-lucide="settings" class="w-4 h-4 text-yellow-300"></i>
+              Flask
+            </div>
+          </div>
         </div>
+      </main>
+      <script>
+        lucide.createIcons();
+      </script>
     </div>
-    </div>
-    <div class="mt-6">
-      <p class="text-gray-300 font-bold uppercase text-sm">Working with</p>
-      <div class="flex flex-wrap justify-center gap-4 mt-4">
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="laptop" class="w-4 h-4 text-yellow-300"></i>
-        VsCode
-        </div>
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="server" class="w-4 h-4 text-yellow-300"></i>
-        Linux
-        </div>
-      </div>
-    </div>
-    <div class="mt-6">
-      <p class="text-gray-300 font-bold uppercase text-sm">Usual frameworks</p>
-      <div class="flex flex-wrap justify-center gap-4 mt-4">
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="zap" class="w-4 h-4 text-yellow-300"></i>
-        FastAPI
-        </div>
-        <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-        <i data-lucide="settings" class="w-4 h-4 text-yellow-300"></i>
-        Flask
-        </div>
-      </div>
-    </div>
-  </main>
-<script>
-  lucide.createIcons();
-</script>
-</body>
+  </body>
 </html>
