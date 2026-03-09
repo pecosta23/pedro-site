@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Costa — Portfolio</title>
-  <link rel="icon" href="/public/favicon.png" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       --accent2: #ffe600;
       --text: #f0ede6;
       --folder-size: 80px;
-      --sidebar-w: 300px;
+      --sidebar-w: 350px;
     }
 
     html, body {
@@ -140,9 +140,13 @@
     }
     .about-links { display: flex; flex-wrap: wrap; gap: 5px; }
     .about-links a {
-      font-size: 9px; padding: 3px 9px; border-radius: 20px;
-      text-decoration: none; border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.72); transition: all 0.15s;
+      font-size: 9px; 
+      padding: 3px 9px; 
+      border-radius: 20px;
+      text-decoration: none; 
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.72); 
+      transition: all 0.15s;
       font-family: 'Space Mono', monospace;
     }
     .about-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
@@ -410,7 +414,7 @@
     <!-- ABOUT -->
     <div class="card" id="about-card" style="animation-delay:0s">
       <h2>Pedro <span>Costa</span></h2>
-      <div class="role">Software Engineer · ML · RPA</div>
+      <div class="role">Software Engineer · ML</div>
       <p>
         Jr. Consultant at KPMG Brasil.<br>
         Postgrad in ML Engineering @ FIAP.<br>
@@ -435,6 +439,7 @@
           <span class="skill-tag">Python</span><span class="skill-tag">Java</span>
           <span class="skill-tag">Kotlin</span><span class="skill-tag">Rust</span>
           <span class="skill-tag">TypeScript</span><span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Swift</span><span class="skill-tag">C#</span>
           <span class="skill-tag">PHP</span><span class="skill-tag">SQL</span>
           <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
         </div>
@@ -462,7 +467,8 @@
         <div class="skill-tags">
           <span class="skill-tag">Random Forest</span><span class="skill-tag">Time Series</span>
           <span class="skill-tag">Classification</span><span class="skill-tag">Feature Engineering</span>
-          <span class="skill-tag">Geospatial Analysis</span><span class="skill-tag">Optimization Algorithms</span>
+          <span class="skill-tag">Geospatial Analysis</span><span class="skill-tag">SMOTE</span>
+          <span class="skill-tag">FFT</span><span class="skill-tag">Optimization Algorithms</span>
         </div>
       </div>
 
@@ -482,11 +488,15 @@
 
       <div class="cert-item">
         <div class="cert-dot" style="background:#4285F4"></div>
-        <div><div class="cert-name">Google Cloud Foundations</div><div class="cert-issuer">SENAI Mogi das Cruzes · 2025</div></div>
+        <div><div class="cert-name">Google Cloud Foundations</div><div class="cert-issuer">SENAI</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#4285F4"></div>
+        <div><div class="cert-name">Google Cloud Machine Learning Engineer</div><div class="cert-issuer">Google Cloud Skill Boost</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-dot" style="background:#3178c6"></div>
-        <div><div class="cert-name">Cambridge FCE — English B2</div><div class="cert-issuer">Cambridge Assessment</div></div>
+        <div><div class="cert-name">Cambridge FCE — English B2</div><div class="cert-issuer">Cambridge Assessment @ CNA</div></div>
       </div>
       <div class="cert-item">
         <div class="cert-dot" style="background:#b07219"></div>
