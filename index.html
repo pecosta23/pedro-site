@@ -1,60 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="Favicon.png" type="image/png"/>
-    <title>Pedro - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-  </head>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      tsParticles.load("tsparticles", {
-        background: {
-          color: {
-            value: "#000000"
-          }
-        },
-        fpsLimit: 60,
-        particles: {
-          color: {
-            value: "#ffffff"
-          },
-          number: {
-            value: 100,
-            density: {
-              enable: true,
-              area: 800
-            }
-          },
-          size: {
-            value: 1.5
-          },
-          move: {
-            enable: true,
-            speed: 0.5
-          },
-          opacity: {
-            value: 0.8
-          }
-        },
-        interactivity: {
-          events: {
-            onHover: {
-              enable: false
-            }
-          }
-        }
-      });
-    });
-  </script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Costa — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
-      body {
-        font-family: 'Arial', sans-serif;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bar-h: 48px;
+      --glass: rgba(15,15,15,0.72);
+      --glass-border: rgba(255,255,255,0.13);
+      --accent: #ff3c3c;
+      --accent2: #ffe600;
+      --text: #f0ede6;
+      --folder-size: 84px;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Space Mono', monospace;
+      color: var(--text);
+      cursor: default;
+      user-select: none;
+    }
+
+    /* ── WALLPAPER ── */
+    #wallpaper {
+      position: fixed; inset: 0; z-index: 0;
+      background: #111 url('aaaa.jpeg') center/cover no-repeat;
+    }
+    #wallpaper::after {
+      content: 'aaaa.jpeg';
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.38);
+    }
+
+    /* ── MENUBAR ── */
+    #menubar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--bar-h);
+      background: rgba(8,8,8,0.78);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex; align-items: center;
+      padding: 0 20px;
+      gap: 0;
+    }
+
+    #menubar .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-right: 28px;
+      white-space: nowrap;
+    }
+    #menubar .logo span { color: var(--accent); }
+
+    .tech-pills {
+      display: flex; align-items: center; gap: 6px;
+      flex-wrap: nowrap; overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+    }
+    .tech-pills::-webkit-scrollbar { display: none; }
+
+    .tech-pill {
+      display: flex; align-items: center; gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.07);
+      color: #ddd;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .tech-pill:hover {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      border-color: rgba(255,255,255,0.35);
+    }
+    .tech-pill .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* language colors */
+    .py { background: #3572A5; }
+    .js { background: #f1e05a; }
+    .ts { background: #3178c6; }
+    .java { background: #b07219; }
+    .kotlin { background: #A97BFF; }
+    .rust { background: #dea584; }
+    .php { background: #4F5D95; }
+    .sql { background: #e38c00; }
+    .swift { background: #F05138; }
+    .html { background: #e34c26; }
+    .css { background: #563d7c; }
+    .other { background: #888; }
+
+    /* right side of menubar */
+    .menubar-right {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 16px;
+      flex-shrink: 0;
+    }
+    .menubar-right a {
+      font-size: 11px;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      transition: color 0.15s;
+    }
+    .menubar-right a:hover { color: #fff; }
+
+    #clock {
+      font-size: 12px;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Space Mono', monospace;
+      min-width: 58px;
+      text-align: right;
+    }
+
+    /* ── DESKTOP ── */
+    #desktop {
+      position: fixed;
+      top: var(--bar-h); left: 0; right: 0; bottom: 0;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    /* ── ABOUT CARD (left side) ── */
+    #about-card {
+      position: absolute;
+      top: 32px; left: 36px;
+      width: 480px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
+      animation: fadeSlideUp 0.5s ease both;
+    }
+    #about-card h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    #about-card h2 span { color: var(--accent); }
+    #about-card .role {
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    #about-card p {
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 14px;
+    }
+    .about-links {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .about-links a {
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.75);
+      transition: all 0.15s;
+      font-family: 'Space Mono', monospace;
+    }
+    .about-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+    /* ── PROJECTS GRID ── */
+    #projects-area {
+      position: absolute;
+      top: 20px; right: 28px;
+      bottom: 90px;
+      left: 540px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.15) transparent;
+      padding: 8px 4px 16px 4px;
+    }
+    #projects-area::-webkit-scrollbar { width: 5px; }
+    #projects-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+    #projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 16px 8px;
+      padding: 4px;
+    }
+
+    /* ── FOLDER ICON ── */
+    .folder-item {
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+      cursor: pointer;
+      padding: 8px 4px;
+      border-radius: 10px;
+      transition: background 0.15s;
+      animation: fadeSlideUp 0.4s ease both;
+    }
+    .folder-item:hover { background: rgba(255,255,255,0.1); }
+    .folder-item.selected { background: rgba(255,198,0,0.18); }
+
+    .folder-icon {
+      width: var(--folder-size); height: var(--folder-size);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .folder-icon svg {
+      width: 100%; height: 100%;
+      filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+    }
+    .folder-lang-badge {
+      position: absolute; bottom: 4px; right: 4px;
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; font-weight: 700;
+      border: 2px solid rgba(0,0,0,0.5);
+      color: #000;
+    }
+
+    .folder-name {
+      font-size: 10.5px;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      line-height: 1.3;
+      max-width: 90px;
+      word-break: break-word;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+    }
+
+    /* ── MODAL ── */
+    #modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    #modal-overlay.open {
+      opacity: 1; pointer-events: all;
+    }
+
+    #modal {
+      width: 420px; max-width: 92vw;
+      background: rgba(18,18,18,0.92);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      overflow: hidden;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      transform: scale(0.92) translateY(12px);
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #modal-overlay.open #modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-titlebar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .modal-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      flex-shrink: 0; cursor: pointer;
+    }
+    .modal-dot.close { background: #ff5f57; }
+    .modal-dot.min { background: #febc2e; }
+    .modal-dot.max { background: #28c840; }
+    .modal-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px; font-weight: 700;
+      flex: 1; text-align: center;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.3px;
+    }
+
+    .modal-body { padding: 22px 24px 24px; }
+
+    .modal-repo-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px; font-weight: 800;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .modal-lang-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 700;
+      padding: 3px 9px; border-radius: 20px;
+      margin-bottom: 14px;
+      color: #000;
+    }
+
+    .modal-desc {
+      font-size: 12.5px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 20px;
+      min-height: 40px;
+    }
+
+    .modal-stats {
+      display: flex; gap: 14px; margin-bottom: 20px;
+    }
+    .modal-stat {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 11px; color: rgba(255,255,255,0.5);
+    }
+    .modal-stat svg { opacity: 0.6; }
+
+    .modal-open-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px; font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      letter-spacing: 0.3px;
+    }
+    .modal-open-btn:hover { background: #e02020; transform: translateY(-1px); }
+    .modal-open-btn:active { transform: translateY(0); }
+
+    /* ── LOADING ── */
+    #loading {
+      position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+    }
+    .spinner {
+      width: 28px; height: 28px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 10px;
+    }
+
+    /* ── DOCK (bottom) ── */
+    #dock {
+      position: fixed;
+      bottom: 16px; left: 50%; transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(10,10,10,0.72);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 8px 20px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .dock-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .dock-item:hover { transform: translateY(-4px); }
+    .dock-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .dock-label {
+      font-size: 9px; color: rgba(255,255,255,0.45);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      #about-card { 
+        top: auto; left: 0; right: 0; bottom: 80px;
+        width: auto; border-radius: 16px 16px 0 0;
+        max-height: 220px; overflow-y: auto;
       }
+      #projects-area {
+        left: 12px; right: 12px; top: 16px; bottom: 250px;
+      }
+    }
   </style>
+<<<<<<< Updated upstream
   <header class="w-screen fixed top-0 flex justify-center items-center z-10">
       <nav class="border-slate-700 border w-[400px] h-8 rounded-3xl backdrop-blur-sm bg-neutral-800 bg-opacity-50 my-5 px-3 flex items-center">
         <ul class="text-slate-100 w-full flex justify-between gap-8 italic text-sm px-5">
@@ -201,6 +569,243 @@
       <script>
         lucide.createIcons();
       </script>
+=======
+</head>
+<body>
+
+<div id="wallpaper"></div>
+
+<!-- MENUBAR -->
+<header id="menubar">
+  <div class="logo">peks<span>_</span></div>
+  <div class="tech-pills" id="tech-pills">
+    <!-- filled by JS -->
+  </div>
+  <div class="menubar-right">
+    <a href="https://github.com/pecosta23" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/pedro-costa-2802-pcm/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.credly.com/users/pedro-costa.c1c2ac1b" target="_blank" rel="noopener">Credly</a>
+    <div id="clock"></div>
+  </div>
+</header>
+
+<!-- DESKTOP -->
+<div id="desktop">
+
+  <!-- ABOUT CARD -->
+  <div id="about-card">
+    <h2>Pedro </h2>
+    <div class="role">Software Engineer · ML</div>
+    <p>
+      Jr. Consultant at KPMG Brasil.<br>
+      Postgrad in Machine Learning Engineering @ FIAP.<br>
+      Graduating in Software Engineering @ UMC.<br>
+      Python, Rust, Java, Kotlin, JS/TS.<br>
+      São Paulo, Brazil 🇧🇷
+    </p>
+    <div class="about-links">
+      <a href="https://github.com/pecosta23" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/pedro-costa-2802-pcm/" target="_blank">LinkedIn</a>
+      <a href="https://www.credly.com/users/pedro-costa.c1c2ac1b" target="_blank">Credly</a>
+>>>>>>> Stashed changes
     </div>
-  </body>
+  </div>
+
+  <!-- PROJECTS GRID -->
+  <div id="projects-area">
+    <div id="loading">
+      <div class="spinner"></div>
+      Fetching repos...
+    </div>
+    <div id="projects-grid" style="display:none;"></div>
+  </div>
+
+</div>
+
+<!-- DOCK -->
+<div id="dock">
+  <div class="dock-item" onclick="window.open('https://github.com/pecosta23','_blank')">
+    <div class="dock-icon">🌐</div>
+    <div class="dock-label">GitHub</div>
+  </div>
+  <div class="dock-item" onclick="window.open('https://linkedin.com/in/pedro-costa-2802-pcm/','_blank')">
+    <div class="dock-icon">💾</div>
+    <div class="dock-label">LinkedIn</div>
+  </div>
+  <div class="dock-item" onclick="window.open('https://boranota.vercel.app','_blank')">
+    <div class="dock-icon">🐶</div>
+    <div class="dock-label">BoraNote</div>
+  </div>
+  <div class="dock-item" onclick="window.open('https://retroclock.vercel.app','_blank')">
+    <div class="dock-icon">⏰</div>
+    <div class="dock-label">RetroClock</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div id="modal">
+    <div class="modal-titlebar">
+      <span class="modal-dot close" onclick="closeModalDirect()"></span>
+      <span class="modal-dot min"></span>
+      <span class="modal-dot max"></span>
+      <span class="modal-title" id="modal-title">Project</span>
+    </div>
+    <div class="modal-body">
+      <div class="modal-repo-name" id="modal-name"></div>
+      <div class="modal-lang-badge" id="modal-lang"></div>
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-stats" id="modal-stats"></div>
+      <a class="modal-open-btn" id="modal-link" href="#" target="_blank" rel="noopener">
+        Open on GitHub →
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CLOCK ──
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('clock').textContent = h + ':' + m;
+}
+updateClock();
+setInterval(updateClock, 5000);
+
+// ── LANGUAGE COLOR MAP ──
+const LANG_COLORS = {
+  'Python':     { bg: '#3572A5', cls: 'py' },
+  'JavaScript': { bg: '#f1e05a', cls: 'js' },
+  'TypeScript': { bg: '#3178c6', cls: 'ts' },
+  'Java':       { bg: '#b07219', cls: 'java' },
+  'Kotlin':     { bg: '#A97BFF', cls: 'kotlin' },
+  'Rust':       { bg: '#dea584', cls: 'rust' },
+  'PHP':        { bg: '#4F5D95', cls: 'php' },
+  'HTML':       { bg: '#e34c26', cls: 'html' },
+  'CSS':        { bg: '#563d7c', cls: 'css' },
+  'Swift':      { bg: '#F05138', cls: 'swift' },
+  'SQL':        { bg: '#e38c00', cls: 'sql' },
+};
+
+function getLangColor(lang) {
+  return LANG_COLORS[lang] || { bg: '#888888', cls: 'other' };
+}
+
+// ── FOLDER SVG ──
+function folderSVG(color) {
+  return `<svg viewBox="0 0 80 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="14" width="80" height="50" rx="7" fill="${color}" opacity="0.85"/>
+    <rect x="0" y="8" width="34" height="16" rx="5" fill="${color}"/>
+    <rect x="0" y="14" width="80" height="50" rx="7" fill="white" opacity="0.07"/>
+  </svg>`;
+}
+
+// ── RENDER TECH PILLS ──
+function renderTechPills(repos) {
+  const counts = {};
+  repos.forEach(r => {
+    if (r.language) counts[r.language] = (counts[r.language] || 0) + 1;
+  });
+  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  const container = document.getElementById('tech-pills');
+  container.innerHTML = '';
+  sorted.forEach(([lang, count]) => {
+    const { bg } = getLangColor(lang);
+    const pill = document.createElement('div');
+    pill.className = 'tech-pill';
+    pill.innerHTML = `<span class="dot" style="background:${bg}"></span>${lang} <span style="opacity:0.5;margin-left:2px;">${count}</span>`;
+    container.appendChild(pill);
+  });
+}
+
+// ── RENDER FOLDERS ──
+function renderFolders(repos) {
+  const grid = document.getElementById('projects-grid');
+  grid.innerHTML = '';
+  grid.style.display = 'grid';
+  document.getElementById('loading').style.display = 'none';
+
+  repos.forEach((repo, i) => {
+    const lang = repo.language || 'Other';
+    const { bg } = getLangColor(lang);
+    const shortLang = lang.substring(0,2).toUpperCase();
+
+    const item = document.createElement('div');
+    item.className = 'folder-item';
+    item.style.animationDelay = (i * 0.035) + 's';
+    item.innerHTML = `
+      <div class="folder-icon">
+        ${folderSVG(bg)}
+        <div class="folder-lang-badge" style="background:${bg};">${shortLang}</div>
+      </div>
+      <div class="folder-name">${repo.name}</div>
+    `;
+    item.addEventListener('click', () => openModal(repo));
+    item.addEventListener('dblclick', () => window.open(repo.html_url, '_blank'));
+    grid.appendChild(item);
+  });
+}
+
+// ── FETCH REPOS ──
+async function fetchRepos() {
+  try {
+    const res = await fetch('https://api.github.com/users/pecosta23/repos?per_page=100&sort=updated');
+    const repos = await res.json();
+    // filter out forks, sort by updated
+    const filtered = repos.filter(r => !r.fork).sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
+    renderTechPills(filtered);
+    renderFolders(filtered);
+  } catch(e) {
+    document.getElementById('loading').innerHTML = '<span style="color:rgba(255,80,80,0.8)">Could not fetch repos.<br>Check connection.</span>';
+  }
+}
+
+// ── MODAL ──
+function openModal(repo) {
+  const lang = repo.language || 'Unknown';
+  const { bg } = getLangColor(lang);
+
+  document.getElementById('modal-title').textContent = repo.name;
+  document.getElementById('modal-name').textContent = repo.name;
+  document.getElementById('modal-lang').textContent = lang;
+  document.getElementById('modal-lang').style.background = bg;
+  document.getElementById('modal-desc').textContent = repo.description || 'No description provided.';
+  document.getElementById('modal-link').href = repo.html_url;
+
+  const statsEl = document.getElementById('modal-stats');
+  statsEl.innerHTML = `
+    <div class="modal-stat">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      ${repo.stargazers_count} stars
+    </div>
+    <div class="modal-stat">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      ${repo.forks_count} forks
+    </div>
+    <div class="modal-stat">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      ${new Date(repo.updated_at).toLocaleDateString('en-US',{month:'short',year:'numeric'})}
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalDirect();
+});
+
+// ── INIT ──
+fetchRepos();
+</script>
+</body>
 </html>
