@@ -17,12 +17,12 @@
       --accent: #ff3c3c;
       --accent2: #ffe600;
       --text: #f0ede6;
-      --folder-size: 84px;
+      --folder-size: 80px;
+      --sidebar-w: 300px;
     }
 
     html, body {
       width: 100%; height: 100%;
-      overflow: hidden;
       font-family: 'Space Mono', monospace;
       color: var(--text);
       cursor: default;
@@ -35,539 +35,354 @@
       background: #111 url('aaaa.jpeg') center/cover no-repeat;
     }
     #wallpaper::after {
-      content: 'aaaa.jpeg';
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.38);
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.42);
     }
 
     /* ── MENUBAR ── */
     #menubar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--bar-h);
-      background: rgba(8,8,8,0.78);
+      background: rgba(8,8,8,0.82);
       backdrop-filter: blur(20px) saturate(1.4);
       -webkit-backdrop-filter: blur(20px) saturate(1.4);
       border-bottom: 1px solid var(--glass-border);
       display: flex; align-items: center;
-      padding: 0 20px;
-      gap: 0;
+      padding: 0 16px; gap: 0;
     }
-
     #menubar .logo {
       font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 15px;
-      letter-spacing: -0.5px;
-      color: #fff;
-      margin-right: 28px;
-      white-space: nowrap;
+      font-weight: 800; font-size: 15px;
+      letter-spacing: -0.5px; color: #fff;
+      margin-right: 20px; white-space: nowrap;
     }
     #menubar .logo span { color: var(--accent); }
 
     .tech-pills {
-      display: flex; align-items: center; gap: 6px;
+      display: flex; align-items: center; gap: 5px;
       flex-wrap: nowrap; overflow-x: auto;
-      scrollbar-width: none;
-      flex: 1;
+      scrollbar-width: none; flex: 1;
     }
     .tech-pills::-webkit-scrollbar { display: none; }
 
     .tech-pill {
       display: flex; align-items: center; gap: 5px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      border: 1px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.07);
-      color: #ddd;
-      transition: background 0.18s, color 0.18s, border-color 0.18s;
-      white-space: nowrap;
-      cursor: pointer;
+      padding: 3px 9px; border-radius: 20px;
+      font-size: 10px; font-family: 'Space Mono', monospace;
+      font-weight: 700; border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.07); color: #ccc;
+      transition: background 0.18s, color 0.18s;
+      white-space: nowrap; cursor: pointer;
     }
-    .tech-pill:hover {
-      background: rgba(255,255,255,0.18);
-      color: #fff;
-      border-color: rgba(255,255,255,0.35);
-    }
-    .tech-pill .dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      flex-shrink: 0;
-    }
+    .tech-pill:hover { background: rgba(255,255,255,0.18); color: #fff; }
+    .tech-pill .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
-    /* language colors */
-    .py { background: #3572A5; }
-    .js { background: #f1e05a; }
-    .ts { background: #3178c6; }
-    .java { background: #b07219; }
-    .kotlin { background: #A97BFF; }
-    .rust { background: #dea584; }
-    .php { background: #4F5D95; }
-    .sql { background: #e38c00; }
-    .swift { background: #F05138; }
-    .html { background: #e34c26; }
-    .css { background: #563d7c; }
-    .other { background: #888; }
-
-    /* right side of menubar */
     .menubar-right {
       margin-left: auto;
-      display: flex; align-items: center; gap: 16px;
-      flex-shrink: 0;
+      display: flex; align-items: center; gap: 14px; flex-shrink: 0;
     }
     .menubar-right a {
-      font-size: 11px;
-      color: rgba(255,255,255,0.65);
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
+      font-size: 11px; color: rgba(255,255,255,0.6);
+      text-decoration: none; font-family: 'Space Mono', monospace;
       transition: color 0.15s;
     }
     .menubar-right a:hover { color: #fff; }
+    #clock { font-size: 12px; color: rgba(255,255,255,0.7); min-width: 50px; text-align: right; }
 
-    #clock {
-      font-size: 12px;
-      color: rgba(255,255,255,0.75);
-      font-family: 'Space Mono', monospace;
-      min-width: 58px;
-      text-align: right;
-    }
-
-    /* ── DESKTOP ── */
+    /* ── DESKTOP SHELL ── */
     #desktop {
       position: fixed;
       top: var(--bar-h); left: 0; right: 0; bottom: 0;
       z-index: 10;
+      display: flex;
       overflow: hidden;
     }
 
-    /* ── ABOUT CARD (left side) ── */
-    #about-card {
-      position: absolute;
-      top: 32px; left: 36px;
-      width: 480px;
+    /* ── LEFT SIDEBAR ── */
+    #sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px 14px 100px 14px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.12) transparent;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    #sidebar::-webkit-scrollbar { width: 4px; }
+    #sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+    /* ── CARDS ── */
+    .card {
       background: var(--glass);
       border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 24px;
+      border-radius: 14px;
+      padding: 18px;
       backdrop-filter: blur(18px) saturate(1.3);
       -webkit-backdrop-filter: blur(18px) saturate(1.3);
       animation: fadeSlideUp 0.5s ease both;
     }
+
     #about-card h2 {
       font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 4px;
+      font-size: 20px; font-weight: 800; line-height: 1.1; margin-bottom: 3px;
     }
     #about-card h2 span { color: var(--accent); }
     #about-card .role {
-      font-size: 10px;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
+      font-size: 9px; color: rgba(255,255,255,0.5);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
     }
     #about-card p {
-      font-size: 11.5px;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.72);
-      margin-bottom: 14px;
+      font-size: 11px; line-height: 1.75;
+      color: rgba(255,255,255,0.68); margin-bottom: 12px;
     }
-    .about-links {
-      display: flex; flex-wrap: wrap; gap: 6px;
-    }
+    .about-links { display: flex; flex-wrap: wrap; gap: 5px; }
     .about-links a {
-      font-size: 10px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.75);
-      transition: all 0.15s;
+      font-size: 9px; padding: 3px 9px; border-radius: 20px;
+      text-decoration: none; border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.72); transition: all 0.15s;
       font-family: 'Space Mono', monospace;
     }
     .about-links a:hover { background: rgba(255,255,255,0.12); color: #fff; }
 
-    /* ── PROJECTS GRID ── */
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+
+    .skill-section { margin-bottom: 11px; }
+    .skill-section:last-child { margin-bottom: 0; }
+    .skill-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 6px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .skill-tag {
+      font-size: 9.5px; padding: 2px 7px; border-radius: 5px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.75);
+      white-space: nowrap;
+    }
+
+    .cert-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .cert-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .cert-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); margin-top: 4px; flex-shrink: 0;
+    }
+    .cert-name { font-size: 10px; line-height: 1.45; color: rgba(255,255,255,0.8); }
+    .cert-issuer { font-size: 9px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+
+    /* ── PROJECTS AREA ── */
     #projects-area {
-      position: absolute;
-      top: 20px; right: 28px;
-      bottom: 90px;
-      left: 540px;
+      flex: 1;
       overflow-y: auto;
       overflow-x: hidden;
+      padding: 16px 16px 100px 12px;
       scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,0.15) transparent;
-      padding: 8px 4px 16px 4px;
+      scrollbar-color: rgba(255,255,255,0.12) transparent;
     }
-    #projects-area::-webkit-scrollbar { width: 5px; }
-    #projects-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    #projects-area::-webkit-scrollbar { width: 4px; }
+    #projects-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+    .section-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.32);
+      margin-bottom: 10px; padding-left: 4px;
+    }
 
     #projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 16px 8px;
-      padding: 4px;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 12px 6px;
     }
 
-    /* ── FOLDER ICON ── */
+    /* ── FOLDER ── */
     .folder-item {
-      display: flex; flex-direction: column; align-items: center; gap: 7px;
-      cursor: pointer;
-      padding: 8px 4px;
-      border-radius: 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      cursor: pointer; padding: 8px 4px; border-radius: 10px;
       transition: background 0.15s;
       animation: fadeSlideUp 0.4s ease both;
     }
     .folder-item:hover { background: rgba(255,255,255,0.1); }
-    .folder-item.selected { background: rgba(255,198,0,0.18); }
 
     .folder-icon {
       width: var(--folder-size); height: var(--folder-size);
-      position: relative;
-      flex-shrink: 0;
+      position: relative; flex-shrink: 0;
     }
     .folder-icon svg {
       width: 100%; height: 100%;
-      filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
     }
     .folder-lang-badge {
-      position: absolute; bottom: 4px; right: 4px;
-      width: 22px; height: 22px; border-radius: 50%;
+      position: absolute; bottom: 3px; right: 3px;
+      width: 20px; height: 20px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 8px; font-weight: 700;
-      border: 2px solid rgba(0,0,0,0.5);
-      color: #000;
+      font-size: 7px; font-weight: 700;
+      border: 2px solid rgba(0,0,0,0.6); color: #000;
+    }
+    .folder-name {
+      font-size: 10px; color: rgba(255,255,255,0.88);
+      text-align: center; line-height: 1.3;
+      max-width: 86px; word-break: break-word;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.95);
     }
 
-    .folder-name {
-      font-size: 10.5px;
-      color: rgba(255,255,255,0.9);
-      text-align: center;
-      line-height: 1.3;
-      max-width: 90px;
-      word-break: break-word;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+    /* ── LOADING ── */
+    #loading {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 40px; gap: 10px;
+      color: rgba(255,255,255,0.45); font-size: 11px;
     }
+    .spinner {
+      width: 26px; height: 26px;
+      border: 2px solid rgba(255,255,255,0.12);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* ── DOCK ── */
+    #dock {
+      position: fixed;
+      bottom: 14px; left: 50%; transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(10,10,10,0.76);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 7px 18px;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .dock-item {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      cursor: pointer; transition: transform 0.15s;
+    }
+    .dock-item:hover { transform: translateY(-5px); }
+    .dock-icon {
+      width: 34px; height: 34px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .dock-label { font-size: 8px; color: rgba(255,255,255,0.4); }
 
     /* ── MODAL ── */
     #modal-overlay {
       position: fixed; inset: 0; z-index: 500;
       background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(5px);
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: opacity 0.2s;
     }
-    #modal-overlay.open {
-      opacity: 1; pointer-events: all;
-    }
-
+    #modal-overlay.open { opacity: 1; pointer-events: all; }
     #modal {
       width: 420px; max-width: 92vw;
-      background: rgba(18,18,18,0.92);
+      background: rgba(18,18,18,0.94);
       border: 1px solid var(--glass-border);
-      border-radius: 18px;
-      overflow: hidden;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+      border-radius: 18px; overflow: hidden;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.75);
       transform: scale(0.92) translateY(12px);
       transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
     }
-    #modal-overlay.open #modal {
-      transform: scale(1) translateY(0);
-    }
+    #modal-overlay.open #modal { transform: scale(1) translateY(0); }
 
     .modal-titlebar {
-      display: flex; align-items: center; gap: 8px;
-      padding: 12px 16px;
+      display: flex; align-items: center; gap: 7px;
+      padding: 11px 15px;
       background: rgba(255,255,255,0.04);
       border-bottom: 1px solid var(--glass-border);
     }
-    .modal-dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      flex-shrink: 0; cursor: pointer;
-    }
+    .modal-dot { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; flex-shrink: 0; }
     .modal-dot.close { background: #ff5f57; }
-    .modal-dot.min { background: #febc2e; }
-    .modal-dot.max { background: #28c840; }
+    .modal-dot.min   { background: #febc2e; }
+    .modal-dot.max   { background: #28c840; }
     .modal-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 13px; font-weight: 700;
-      flex: 1; text-align: center;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 0.3px;
+      font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
+      flex: 1; text-align: center; color: rgba(255,255,255,0.65);
     }
-
-    .modal-body { padding: 22px 24px 24px; }
-
-    .modal-repo-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px; font-weight: 800;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-
+    .modal-body { padding: 20px 22px 22px; }
+    .modal-repo-name { font-family: 'Syne', sans-serif; font-size: 19px; font-weight: 800; margin-bottom: 6px; }
     .modal-lang-badge {
-      display: inline-flex; align-items: center; gap: 5px;
+      display: inline-flex; align-items: center;
       font-size: 10px; font-weight: 700;
-      padding: 3px 9px; border-radius: 20px;
-      margin-bottom: 14px;
-      color: #000;
+      padding: 3px 9px; border-radius: 20px; margin-bottom: 13px; color: #000;
     }
-
-    .modal-desc {
-      font-size: 12.5px;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.68);
-      margin-bottom: 20px;
-      min-height: 40px;
-    }
-
-    .modal-stats {
-      display: flex; gap: 14px; margin-bottom: 20px;
-    }
-    .modal-stat {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 11px; color: rgba(255,255,255,0.5);
-    }
-    .modal-stat svg { opacity: 0.6; }
-
+    .modal-desc { font-size: 12px; line-height: 1.75; color: rgba(255,255,255,0.65); margin-bottom: 18px; min-height: 36px; }
+    .modal-stats { display: flex; gap: 14px; margin-bottom: 18px; }
+    .modal-stat { display: flex; align-items: center; gap: 5px; font-size: 11px; color: rgba(255,255,255,0.45); }
     .modal-open-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      background: var(--accent);
-      color: #fff;
-      font-family: 'Space Mono', monospace;
-      font-size: 12px; font-weight: 700;
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-      border: none; cursor: pointer;
+      background: var(--accent); color: #fff;
+      font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+      padding: 9px 18px; border-radius: 9px;
+      text-decoration: none; border: none; cursor: pointer;
       transition: background 0.15s, transform 0.1s;
-      letter-spacing: 0.3px;
     }
-    .modal-open-btn:hover { background: #e02020; transform: translateY(-1px); }
-    .modal-open-btn:active { transform: translateY(0); }
-
-    /* ── LOADING ── */
-    #loading {
-      position: absolute;
-      top: 50%; left: 50%; transform: translate(-50%,-50%);
-      text-align: center;
-      color: rgba(255,255,255,0.5);
-      font-size: 12px;
-    }
-    .spinner {
-      width: 28px; height: 28px;
-      border: 2px solid rgba(255,255,255,0.15);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 10px;
-    }
-
-    /* ── DOCK (bottom) ── */
-    #dock {
-      position: fixed;
-      bottom: 16px; left: 50%; transform: translateX(-50%);
-      z-index: 100;
-      background: rgba(10,10,10,0.72);
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 8px 20px;
-      display: flex; align-items: center; gap: 20px;
-    }
-    .dock-item {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      cursor: pointer;
-      transition: transform 0.15s;
-    }
-    .dock-item:hover { transform: translateY(-4px); }
-    .dock-icon {
-      width: 36px; height: 36px; border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .dock-label {
-      font-size: 9px; color: rgba(255,255,255,0.45);
-      font-family: 'Space Mono', monospace;
-    }
+    .modal-open-btn:hover { background: #df1f1f; transform: translateY(-1px); }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      #about-card { 
-        top: auto; left: 0; right: 0; bottom: 80px;
-        width: auto; border-radius: 16px 16px 0 0;
-        max-height: 220px; overflow-y: auto;
+    /* ── MOBILE ── */
+    @media (max-width: 680px) {
+      html, body { overflow: auto; height: auto; }
+      #wallpaper { position: fixed; }
+
+      #desktop {
+        position: relative;
+        top: var(--bar-h);
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+        padding-bottom: 80px;
       }
+
+      #sidebar {
+        width: 100%;
+        overflow: visible;
+        padding: 14px 12px 0 12px;
+      }
+
       #projects-area {
-        left: 12px; right: 12px; top: 16px; bottom: 250px;
+        overflow: visible;
+        padding: 14px 12px 20px 12px;
       }
+
+      #projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      }
+
+      .tech-pills { display: none; }
+      .menubar-right a { display: none; }
+      #clock { display: block; }
+
+      #dock {
+        padding: 6px 12px;
+        gap: 10px;
+      }
+      .dock-label { display: none; }
+      .dock-icon { width: 30px; height: 30px; font-size: 14px; }
     }
   </style>
-  <header class="w-screen fixed top-0 flex justify-center items-center z-10">
-      <nav class="border-slate-700 border w-[400px] h-8 rounded-3xl backdrop-blur-sm bg-neutral-800 bg-opacity-50 my-5 px-3 flex items-center">
-        <ul class="text-slate-100 w-full flex justify-between gap-8 italic text-sm px-5">
-          <li><a href="about.html" class="hover:text-blue-400">About</a></li>
-          <li><a href="https://github.com/pecosta23/" class="hover:text-purple-400" target="_blank" rel="noopener noreferrer">Github</a></li>
-          <li><a href="https://linkedin.com/in/pedro-costa-2802-pcm/" class="hover:text-blue-400" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-          <li><a href="https://www.credly.com/users/pedro-costa.c1c2ac1b" class="hover:text-green-400" target="_blank" rel="noopener noreferrer">Credly</a></li>
-        </ul>
-      </nav>
-  </header>
-  <body class="bg-black text-white min-h-screen flex items-center justify-center px-4 pt-20">
-    <div id="tsparticles" class="fixed top-0 left-0 w-full h-full -z-10"></div>
-      <main class="max-w-4xl text-center">
-        <h1 class="text-5xl sm:text-8xl font-bold italic mb-6">Hello, I'm <span class="text-white">Pedro</span>_</h1><br>
-        <div class="mt-6">
-          <p class="text-gray-300 font-bold uppercase text-sm">Programming languages</p>
-          <div class="flex flex-wrap justify-center gap-4 mt-4">
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="code" class="w-4 h-4 text-yellow-300"></i>
-              Python
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="atom" class="w-4 h-4 text-yellow-300"></i>
-              Rust
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="terminal" class="w-4 h-4 text-red-300"></i>
-              Java
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="layout-template" class="w-4 h-4 text-green-300"></i>
-              Kotlin
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="file-code" class="w-4 h-4 text-yellow-400"></i>
-              JavaScript
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="wind" class="w-4 h-4 text-blue-400"></i>
-              TypeScript
-            </div>
-          </div>
-        </div>
-        <div class="mt-6">
-          <p class="text-gray-300 font-bold uppercase text-sm">Recent Projects</p>
-          <div class="flex flex-wrap justify-center gap-4 mt-4">
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <a href="https://land-page-gabi.vercel.app"  
-                 class="flex items-center gap-2 text-white-300 hover:underline"  
-                 target="_blank" rel="noopener noreferrer">
-                 <i data-lucide="webhook" class="w-4 h-4"></i>
-                 Land Page for my psychologist girlfriend Gabi
-              </a>
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <a href="https://conceptcar-rho.vercel.app"  
-                 class="flex items-center gap-2 text-white-300 hover:underline"  
-                 target="_blank" rel="noopener noreferrer">
-                 <i data-lucide="webhook" class="w-4 h-4"></i>
-                 Concept Car - Car Detailing
-              </a>
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <a href="https://mogi-bike-wash.vercel.app"  
-                 class="flex items-center gap-2 text-white-300 hover:underline"  
-                 target="_blank" rel="noopener noreferrer">
-                 <i data-lucide="webhook" class="w-4 h-4"></i>
-                 Mogi Bike Wash for my friend Abel
-              </a>
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <a href="https://boranota.vercel.app"  
-                 class="flex items-center gap-2 text-white-300 hover:underline"  
-                 target="_blank" rel="noopener noreferrer">
-                 <i data-lucide="webhook" class="w-4 h-4"></i>
-                 Bora Nota - Create Progress
-              </a>
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <a href="https://retroclock.vercel.app"  
-                 class="flex items-center gap-2 text-white-300 hover:underline"  
-                 target="_blank" rel="noopener noreferrer">
-                 <i data-lucide="webhook" class="w-4 h-4"></i>
-                 Retro Clock - Just a cool looking clock
-              </a>
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <a href="https://github.com/pecosta23/SignalCollector/tree/main"  
-                 class="flex items-center gap-2 text-white-300 hover:underline"  
-                 target="_blank" rel="noopener noreferrer">
-                 <i data-lucide="webhook" class="w-4 h-4"></i>
-                 Signal Collector - Android and ML
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="mt-6">
-          <p class="text-gray-300 font-bold uppercase text-sm">Working with</p>
-          <div class="flex flex-wrap justify-center gap-4 mt-4">
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="laptop" class="w-4 h-4 text-blue-300"></i>
-              VsCode
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="server" class="w-4 h-4 text-purple-300"></i>
-              Linux
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="gavel" class="w-4 h-4 text-red-300"></i>
-              Android Studio
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="square-user" class="w-4 h-4 text-green-300"></i>
-              Postman
-            </div>
-          </div>
-        </div>
-        <div class="mt-6">
-          <p class="text-gray-300 font-bold uppercase text-sm">Usual frameworks</p>
-          <div class="flex flex-wrap justify-center gap-4 mt-4">
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-            <i data-lucide="zap" class="w-4 h-4 text-yellow-300"></i>
-              FastAPI
-              </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="settings" class="w-4 h-4 text-yellow-300"></i>
-              Flask
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="wand" class="w-4 h-4 text-yellow-300"></i>
-              Tailwindcss
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="gauge" class="w-4 h-4 text-yellow-300"></i>
-              SkLearn
-            </div>
-            <div class="flex items-center gap-2 bg-gray-800 px-4 py-2 rounded">
-              <i data-lucide="panda" class="w-4 h-4 text-yellow-300"></i>
-              Pandas
-            </div>
-          </div>
-        </div>
-      </main>
-      <script>
-        lucide.createIcons();
-      </script>
 </head>
 <body>
 
@@ -576,9 +391,7 @@
 <!-- MENUBAR -->
 <header id="menubar">
   <div class="logo">peks<span>_</span></div>
-  <div class="tech-pills" id="tech-pills">
-    <!-- filled by JS -->
-  </div>
+  <div class="tech-pills" id="tech-pills"></div>
   <div class="menubar-right">
     <a href="https://github.com/pecosta23" target="_blank" rel="noopener">GitHub</a>
     <a href="https://linkedin.com/in/pedro-costa-2802-pcm/" target="_blank" rel="noopener">LinkedIn</a>
@@ -590,26 +403,125 @@
 <!-- DESKTOP -->
 <div id="desktop">
 
-  <!-- ABOUT CARD -->
-  <div id="about-card">
-    <h2>Pedro </h2>
-    <div class="role">Software Engineer · ML</div>
-    <p>
-      Jr. Consultant at KPMG Brasil.<br>
-      Postgrad in Machine Learning Engineering @ FIAP.<br>
-      Graduating in Software Engineering @ UMC.<br>
-      Python, Rust, Java, Kotlin, JS/TS.<br>
-      São Paulo, Brazil 🇧🇷
-    </p>
-    <div class="about-links">
-      <a href="https://github.com/pecosta23" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/in/pedro-costa-2802-pcm/" target="_blank">LinkedIn</a>
-      <a href="https://www.credly.com/users/pedro-costa.c1c2ac1b" target="_blank">Credly</a>
-    </div>
-  </div>
+  <!-- LEFT SIDEBAR -->
+  <div id="sidebar">
 
-  <!-- PROJECTS GRID -->
+    <!-- ABOUT -->
+    <div class="card" id="about-card" style="animation-delay:0s">
+      <h2>Pedro <span>Costa</span></h2>
+      <div class="role">Software Engineer · ML · RPA</div>
+      <p>
+        Jr. Consultant at KPMG Brasil.<br>
+        Postgrad in ML Engineering @ FIAP.<br>
+        Graduating in Software Engineering @ UMC.<br>
+        Python, Rust, Java, Kotlin, JS/TS.<br>
+        São Paulo, Brazil 🇧🇷
+      </p>
+      <div class="about-links">
+        <a href="https://github.com/pecosta23" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/pedro-costa-2802-pcm/" target="_blank">LinkedIn</a>
+        <a href="https://www.credly.com/users/pedro-costa.c1c2ac1b" target="_blank">Credly</a>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="card" style="animation-delay:0.07s">
+      <div class="card-title">Skills</div>
+
+      <div class="skill-section">
+        <div class="skill-label">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">Java</span>
+          <span class="skill-tag">Kotlin</span><span class="skill-tag">Rust</span>
+          <span class="skill-tag">TypeScript</span><span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">PHP</span><span class="skill-tag">SQL</span>
+          <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-section">
+        <div class="skill-label">Frameworks & Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">FastAPI</span><span class="skill-tag">Flask</span>
+          <span class="skill-tag">React</span><span class="skill-tag">Spring Boot</span>
+          <span class="skill-tag">Docker</span><span class="skill-tag">Git</span>
+        </div>
+      </div>
+
+      <div class="skill-section">
+        <div class="skill-label">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span><span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">H2</span><span class="skill-tag">AWS S3</span>
+        </div>
+      </div>
+
+      <div class="skill-section">
+        <div class="skill-label">Machine Learning</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Random Forest</span><span class="skill-tag">Time Series</span>
+          <span class="skill-tag">Classification</span><span class="skill-tag">Feature Engineering</span>
+          <span class="skill-tag">Geospatial Analysis</span><span class="skill-tag">Optimization Algorithms</span>
+        </div>
+      </div>
+
+      <div class="skill-section">
+        <div class="skill-label">Other</div>
+        <div class="skill-tags">
+          <span class="skill-tag">CI/CD</span><span class="skill-tag">Microservices</span>
+          <span class="skill-tag">REST APIs</span><span class="skill-tag">Unit Testing</span>
+          <span class="skill-tag">Data Scraping</span><span class="skill-tag">Scalable Backend</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="card" style="animation-delay:0.14s">
+      <div class="card-title">Certifications</div>
+
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#4285F4"></div>
+        <div><div class="cert-name">Google Cloud Foundations</div><div class="cert-issuer">SENAI Mogi das Cruzes · 2025</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#3178c6"></div>
+        <div><div class="cert-name">Cambridge FCE — English B2</div><div class="cert-issuer">Cambridge Assessment</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#b07219"></div>
+        <div><div class="cert-name">Java Language</div><div class="cert-issuer">Fundação Bradesco</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#b07219"></div>
+        <div><div class="cert-name">Object-Oriented Programming</div><div class="cert-issuer">Fundação Bradesco</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#666"></div>
+        <div><div class="cert-name">ISO 27001 Training</div><div class="cert-issuer">TI Exames</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#f1e05a"></div>
+        <div><div class="cert-name">JavaScript</div><div class="cert-issuer">Alura</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#e38c00"></div>
+        <div><div class="cert-name">Cybersecurity Fundamentals</div><div class="cert-issuer">ENAP</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#e38c00"></div>
+        <div><div class="cert-name">Cloud Services Administration</div><div class="cert-issuer">ENAP</div></div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-dot" style="background:#e38c00"></div>
+        <div><div class="cert-name">Power BI Fundamentals</div><div class="cert-issuer">ENAP</div></div>
+      </div>
+    </div>
+
+  </div><!-- /sidebar -->
+
+  <!-- PROJECTS -->
   <div id="projects-area">
+    <div class="section-label">GitHub Repositories</div>
     <div id="loading">
       <div class="spinner"></div>
       Fetching repos...
@@ -617,25 +529,37 @@
     <div id="projects-grid" style="display:none;"></div>
   </div>
 
-</div>
+</div><!-- /desktop -->
 
 <!-- DOCK -->
 <div id="dock">
   <div class="dock-item" onclick="window.open('https://github.com/pecosta23','_blank')">
-    <div class="dock-icon">🌐</div>
+    <div class="dock-icon">🐙</div>
     <div class="dock-label">GitHub</div>
   </div>
   <div class="dock-item" onclick="window.open('https://linkedin.com/in/pedro-costa-2802-pcm/','_blank')">
-    <div class="dock-icon">💾</div>
+    <div class="dock-icon">💼</div>
     <div class="dock-label">LinkedIn</div>
   </div>
   <div class="dock-item" onclick="window.open('https://boranota.vercel.app','_blank')">
-    <div class="dock-icon">🐶</div>
+    <div class="dock-icon">📈</div>
     <div class="dock-label">BoraNote</div>
   </div>
   <div class="dock-item" onclick="window.open('https://retroclock.vercel.app','_blank')">
     <div class="dock-icon">⏰</div>
     <div class="dock-label">RetroClock</div>
+  </div>
+  <div class="dock-item" onclick="window.open('https://land-page-gabi.vercel.app','_blank')">
+    <div class="dock-icon">🌿</div>
+    <div class="dock-label">Gabi</div>
+  </div>
+  <div class="dock-item" onclick="window.open('https://mogi-bike-wash.vercel.app','_blank')">
+    <div class="dock-icon">🚲</div>
+    <div class="dock-label">BikeWash</div>
+  </div>
+  <div class="dock-item" onclick="window.open('https://conceptcar-rho.vercel.app','_blank')">
+    <div class="dock-icon">🚗</div>
+    <div class="dock-label">ConceptCar</div>
   </div>
 </div>
 
@@ -653,89 +577,66 @@
       <div class="modal-lang-badge" id="modal-lang"></div>
       <div class="modal-desc" id="modal-desc"></div>
       <div class="modal-stats" id="modal-stats"></div>
-      <a class="modal-open-btn" id="modal-link" href="#" target="_blank" rel="noopener">
-        Open on GitHub →
-      </a>
+      <a class="modal-open-btn" id="modal-link" href="#" target="_blank" rel="noopener">Open on GitHub →</a>
     </div>
   </div>
 </div>
 
 <script>
-// ── CLOCK ──
+// CLOCK
 function updateClock() {
   const now = new Date();
-  const h = String(now.getHours()).padStart(2,'0');
-  const m = String(now.getMinutes()).padStart(2,'0');
-  document.getElementById('clock').textContent = h + ':' + m;
+  document.getElementById('clock').textContent =
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
 }
 updateClock();
 setInterval(updateClock, 5000);
 
-// ── LANGUAGE COLOR MAP ──
+// LANG COLORS
 const LANG_COLORS = {
-  'Python':     { bg: '#3572A5', cls: 'py' },
-  'JavaScript': { bg: '#f1e05a', cls: 'js' },
-  'TypeScript': { bg: '#3178c6', cls: 'ts' },
-  'Java':       { bg: '#b07219', cls: 'java' },
-  'Kotlin':     { bg: '#A97BFF', cls: 'kotlin' },
-  'Rust':       { bg: '#dea584', cls: 'rust' },
-  'PHP':        { bg: '#4F5D95', cls: 'php' },
-  'HTML':       { bg: '#e34c26', cls: 'html' },
-  'CSS':        { bg: '#563d7c', cls: 'css' },
-  'Swift':      { bg: '#F05138', cls: 'swift' },
-  'SQL':        { bg: '#e38c00', cls: 'sql' },
+  'Python':'#3572A5','JavaScript':'#f1e05a','TypeScript':'#3178c6',
+  'Java':'#b07219','Kotlin':'#A97BFF','Rust':'#dea584','PHP':'#4F5D95',
+  'HTML':'#e34c26','CSS':'#563d7c','Swift':'#F05138','SQL':'#e38c00',
 };
+const getLangColor = lang => LANG_COLORS[lang] || '#888888';
 
-function getLangColor(lang) {
-  return LANG_COLORS[lang] || { bg: '#888888', cls: 'other' };
-}
+// FOLDER SVG
+const folderSVG = color => `<svg viewBox="0 0 80 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="14" width="80" height="50" rx="7" fill="${color}" opacity="0.85"/>
+  <rect x="0" y="8" width="34" height="16" rx="5" fill="${color}"/>
+  <rect x="0" y="14" width="80" height="50" rx="7" fill="white" opacity="0.07"/>
+</svg>`;
 
-// ── FOLDER SVG ──
-function folderSVG(color) {
-  return `<svg viewBox="0 0 80 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="14" width="80" height="50" rx="7" fill="${color}" opacity="0.85"/>
-    <rect x="0" y="8" width="34" height="16" rx="5" fill="${color}"/>
-    <rect x="0" y="14" width="80" height="50" rx="7" fill="white" opacity="0.07"/>
-  </svg>`;
-}
-
-// ── RENDER TECH PILLS ──
+// TECH PILLS
 function renderTechPills(repos) {
   const counts = {};
-  repos.forEach(r => {
-    if (r.language) counts[r.language] = (counts[r.language] || 0) + 1;
-  });
-  const sorted = Object.entries(counts).sort((a,b) => b[1]-a[1]);
+  repos.forEach(r => { if (r.language) counts[r.language] = (counts[r.language]||0)+1; });
   const container = document.getElementById('tech-pills');
   container.innerHTML = '';
-  sorted.forEach(([lang, count]) => {
-    const { bg } = getLangColor(lang);
+  Object.entries(counts).sort((a,b)=>b[1]-a[1]).forEach(([lang, count]) => {
     const pill = document.createElement('div');
     pill.className = 'tech-pill';
-    pill.innerHTML = `<span class="dot" style="background:${bg}"></span>${lang} <span style="opacity:0.5;margin-left:2px;">${count}</span>`;
+    pill.innerHTML = `<span class="dot" style="background:${getLangColor(lang)}"></span>${lang} <span style="opacity:0.45;margin-left:2px;">${count}</span>`;
     container.appendChild(pill);
   });
 }
 
-// ── RENDER FOLDERS ──
+// FOLDERS
 function renderFolders(repos) {
   const grid = document.getElementById('projects-grid');
   grid.innerHTML = '';
   grid.style.display = 'grid';
   document.getElementById('loading').style.display = 'none';
-
   repos.forEach((repo, i) => {
     const lang = repo.language || 'Other';
-    const { bg } = getLangColor(lang);
-    const shortLang = lang.substring(0,2).toUpperCase();
-
+    const bg = getLangColor(lang);
     const item = document.createElement('div');
     item.className = 'folder-item';
-    item.style.animationDelay = (i * 0.035) + 's';
+    item.style.animationDelay = (i * 0.03) + 's';
     item.innerHTML = `
       <div class="folder-icon">
         ${folderSVG(bg)}
-        <div class="folder-lang-badge" style="background:${bg};">${shortLang}</div>
+        <div class="folder-lang-badge" style="background:${bg};">${lang.substring(0,2).toUpperCase()}</div>
       </div>
       <div class="folder-name">${repo.name}</div>
     `;
@@ -745,40 +646,36 @@ function renderFolders(repos) {
   });
 }
 
-// ── FETCH REPOS ──
+// FETCH
 async function fetchRepos() {
   try {
     const res = await fetch('https://api.github.com/users/pecosta23/repos?per_page=100&sort=updated');
     const repos = await res.json();
-    // filter out forks, sort by updated
-    const filtered = repos.filter(r => !r.fork).sort((a,b) => new Date(b.updated_at) - new Date(a.updated_at));
+    const filtered = repos.filter(r => !r.fork).sort((a,b) => new Date(b.updated_at)-new Date(a.updated_at));
     renderTechPills(filtered);
     renderFolders(filtered);
   } catch(e) {
-    document.getElementById('loading').innerHTML = '<span style="color:rgba(255,80,80,0.8)">Could not fetch repos.<br>Check connection.</span>';
+    document.getElementById('loading').innerHTML = '<span style="color:rgba(255,80,80,0.8);font-size:11px;">Could not fetch repos.</span>';
   }
 }
 
-// ── MODAL ──
+// MODAL
 function openModal(repo) {
   const lang = repo.language || 'Unknown';
-  const { bg } = getLangColor(lang);
-
+  const bg = getLangColor(lang);
   document.getElementById('modal-title').textContent = repo.name;
   document.getElementById('modal-name').textContent = repo.name;
   document.getElementById('modal-lang').textContent = lang;
   document.getElementById('modal-lang').style.background = bg;
   document.getElementById('modal-desc').textContent = repo.description || 'No description provided.';
   document.getElementById('modal-link').href = repo.html_url;
-
-  const statsEl = document.getElementById('modal-stats');
-  statsEl.innerHTML = `
+  document.getElementById('modal-stats').innerHTML = `
     <div class="modal-stat">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       ${repo.stargazers_count} stars
     </div>
     <div class="modal-stat">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
       ${repo.forks_count} forks
     </div>
     <div class="modal-stat">
@@ -786,22 +683,13 @@ function openModal(repo) {
       ${new Date(repo.updated_at).toLocaleDateString('en-US',{month:'short',year:'numeric'})}
     </div>
   `;
-
   document.getElementById('modal-overlay').classList.add('open');
 }
 
-function closeModal(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
-}
-function closeModalDirect() {
-  document.getElementById('modal-overlay').classList.remove('open');
-}
+function closeModal(e) { if (e.target===document.getElementById('modal-overlay')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modal-overlay').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModalDirect(); });
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModalDirect();
-});
-
-// ── INIT ──
 fetchRepos();
 </script>
 </body>
